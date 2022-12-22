@@ -1,7 +1,3 @@
-# Self Learning Notes V2
+## Guide
 
-Repository to store all the notes and cheatsheets of the programming and IT topics that I am learning in order to have a quick access to them.
-
-## V2
-
-V2 implements the site with Hugo
+This guide covers the necessary bits. As the project evolves, it will only become more comprehensive
