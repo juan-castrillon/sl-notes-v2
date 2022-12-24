@@ -6,6 +6,10 @@ draft: true
 
 The key component of git is the commits. A commit is single point in the Git history; the entire history of a project is represented as a set of interrelated commits.
 
+{{</* tip "warning" */>}}
+By good practice, commits should be __atomic__. This means each commit should relate to only one feature. This makes it easier to control, and roll back.
+{{</* /tip */>}}
+
 ## Commit Message
 
 A commit contains the current contents of the index and the given log message describing the changes.
