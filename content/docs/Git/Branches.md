@@ -43,3 +43,47 @@ Uncommited changes will be lost if switching branches (can be stashed). Only if 
 {{< /tip >}}
 
 ## Merging branches
+
+When working with branches, most of the use cases involves bringing the work done in a branch into the original (or other) branch. 
+
+Incorporating changes from one branch to the other, is done with the `git merge` command.
+
+`git merge` __always__ merges to the current HEAD branch.
+
+In summary the process is the following: 
+1. Switch to target branch (e.g `git switch master`)
+2. Merge branch (e.g `git merge mybranch`)
+
+According to the type of differences accross the branches, there could be:
+- Different types of merges
+- Merge conflicts
+
+### Merge Types
+
+__Fast forward__:
+
+![](/images/Git/ff.png)
+
+- Simplest type of merge
+- Target branch is just behind merging branch 
+- In other words, the merging branch just have some extra commits.
+- Always automatically merged
+  
+__Merge Commit__:
+
+![](/images/Git/mc.png)
+
+- More common
+- There is commits in the target branch that are not in the merging one.
+- Can be automatically merged or not, depending on conflicts.
+- Makes a commit. Normally asks for a commit message
+
+### Merge Conflicts
+
+If a merge operation involves a file that is present but different in both branches, a merge conflict occur. In that case, `git` cannot decide which "version" should stay, so automatic merging is deactivated and one has to resolve the conflicts manually:
+
+- Files with conflict get "decorated" with `<<<<<<< HEAD` and `>>>>>>> branch` to indicate which changes belong to which branch
+- One decides which to keep (or combines both)
+- One removes the decorators
+- The files must be saved and committed to apply the merge 
+- Tools like VSCode offer a GUI for resolving conflicts
