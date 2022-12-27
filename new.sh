@@ -12,7 +12,7 @@ function new_section {
         echo "No section name provided."
     else
         mkdir -p "$content_dir/docs/$1"
-        hugo new "$content_dir/docs/$1/_index.md"
+        hugo new "$content_dir/docs/$1/_index.md" -k index
         echo "Created $1 section."
     fi
 }
