@@ -24,9 +24,9 @@ This state is useful for:
 
 The last option, allows to branch out on a particular commit in the repo history by reattaching the HEAD
 
-{{< tip >}}
+<!-- tip -->
 Commits can also be referenced from `HEAD` instead of the commit hash. So `git checkout HEAD~1` takes HEAD back one commit, and so on. 
-{{< /tip >}}
+<!-- tip -->
 
 ### Discard changes
 
@@ -45,9 +45,9 @@ Same functionality as `git checkout HEAD <files>` is achieved with
 git restore <files>
 ```
 
-{{< tip >}}
+<!-- tip -->
 Restore also allows to set up a "source" different than HEAD to restore files like `git restore --source HEAD~1 <files>`
-{{< /tip >}}
+<!-- tip -->
 
 ### Unstage files 
 

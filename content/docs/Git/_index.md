@@ -7,9 +7,9 @@ draft: true
 
 Git is a version control system. In other words it registers changes on a set of files. 
 
-{{< tip >}}
+<!-- tip -->
 Git uses SHA-1 to reference a version of a file or files.
-{{< /tip >}}
+<!-- tip -->
  
 
 ## Basic Workflow
