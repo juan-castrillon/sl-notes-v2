@@ -55,3 +55,20 @@ To remove a file from the staging area and take it back to the working directory
 ```sh
 git restore --staged <file>
 ```
+
+## `git reset`
+
+This commands resets the state of the current branch to an specific commit. It comes in two flavors:
+
+- `git reset <COMMIT>`: Will delete the commits but keep the changes in the working directory. This is specially useful when commits were added to the wrong branch
+- `git reset --hard <COMMIT>`. Will delete the commits and remove the changes
+
+## `git revert`
+
+Has a very similar effect to `git reset`, but this command creates a **new** commit that reverts the changes of another commit : 
+
+![](/images/Git/gitrevert.png)
+
+{{% notice style="warning" title="Important" icon="exclamation-circle" %}}
+When dealing with collaboration workflows, it is recommended to use `revert` instead of `reset` to undo changes. This way, the history that other people have does not have to be rewritten which can lead to issues
+{{% /notice %}}
