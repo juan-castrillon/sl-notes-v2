@@ -16,9 +16,10 @@ git init example
 ```
 It will first create a folder called `example` and inside this folder initialize the repo.
 
-<!-- tip -->
+{{% notice style="tip" title="Tip" %}}
 To make a directory not a git repository anymore, just delete the hidden `.git` folder.
-<!-- tip -->
+{{% /notice %}}
+
 
 ## `git status`
 

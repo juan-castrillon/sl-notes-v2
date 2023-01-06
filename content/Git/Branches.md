@@ -38,9 +38,10 @@ In detail, branching happens when a commit has more that one child commit. In a 
 - Older command with lots of extra functionalities
 - `git checkout -b name` can be used to create a new branch and switch to it
 
-<!-- tip -->
+{{% notice style="warning" title="Attention" %}}
 Uncommited changes will be lost if switching branches (can be stashed). Only if the changes do not conflict, for example new files that dont exist, will these come to the new branch
-<!-- tip -->
+{{% /notice %}}
+
 
 ## Merging branches
 

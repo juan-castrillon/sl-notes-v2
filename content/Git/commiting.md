@@ -6,9 +6,10 @@ draft: true
 
 The key component of git is the commits. A commit is single point in the Git history; the entire history of a project is represented as a set of interrelated commits.
 
-<!-- tip -->
+{{% notice style="info" title="Good practice" %}}
 By good practice, commits should be __atomic__. This means each commit should relate to only one feature. This makes it easier to control, and roll back.
-<!-- tip -->
+{{% /notice %}}
+
 
 ## Commit Message
 
@@ -27,9 +28,10 @@ Ammending a commit replaces the tip of the current branch by creating a new comm
 
 In practice it can be used to "fix" the last commit. 
 
-<!-- tip -->
+{{% notice style="tip" title="Remember" %}}
 The changes to ammend need to be staged
-<!-- tip -->
+{{% /notice %}}
+
 
 ## Ignoring files and directories
 
