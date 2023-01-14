@@ -1,1 +1,1 @@
-var relearn_search_index=[{content:"",description:"",tags:null,title:"Notes",uri:"/index.html"},{content:"",description:"",tags:null,title:"Categories",uri:"/categories/index.html"},{content:"",description:"",tags:null,title:"Tags",uri:"/tags/index.html"}]
+var relearn_search_index=[{content:"",description:"",tags:null,title:"Notes",uri:"/sl-notes-v2/index.html"},{content:"",description:"",tags:null,title:"Categories",uri:"/sl-notes-v2/categories/index.html"},{content:"",description:"",tags:null,title:"Tags",uri:"/sl-notes-v2/tags/index.html"}]
