@@ -1,5 +1,5 @@
 ---
 title: "Terraform"
-draft: false
+draft: true
 ---
 
