@@ -2,7 +2,7 @@
 title: "System Startup"
 date: 2023-01-04T22:46:37+01:00
 weight: 1
-draft: true
+draft: false
 ---
 
 ## The boot process

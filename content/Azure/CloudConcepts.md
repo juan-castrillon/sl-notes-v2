@@ -1,7 +1,7 @@
 ---
 title: "Cloud Concepts"
 date: 2022-12-23T16:31:23+01:00
-draft: true
+draft: false
 ---
 
 ## Definition

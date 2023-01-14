@@ -1,6 +1,6 @@
 ---
 title: "Git"
-draft: true
+draft: false
 ---
 
 # What is?

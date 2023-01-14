@@ -1,7 +1,7 @@
 ---
 title: "Basic Commands"
 date: 2022-12-22T16:07:48+01:00
-draft: true
+draft: false
 ---
 
 Below are some of the most used commands when using git from the command line: 

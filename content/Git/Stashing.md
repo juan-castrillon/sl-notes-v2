@@ -1,7 +1,7 @@
 ---
 title: "Stashing"
 date: 2022-12-31T17:25:45+01:00
-draft: true
+draft: false
 ---
 
 ## What is stashing?

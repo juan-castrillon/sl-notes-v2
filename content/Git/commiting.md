@@ -1,7 +1,7 @@
 ---
 title: "Commiting"
 date: 2022-12-22T22:02:23+01:00
-draft: true
+draft: false
 ---
 
 The key component of git is the commits. A commit is single point in the Git history; the entire history of a project is represented as a set of interrelated commits.

@@ -2,7 +2,7 @@
 title: "Documentation and Help"
 date: 2023-01-14T11:03:07+01:00
 weight: 2
-draft: true
+draft: false
 ---
 
 Linux is a powerful and flexible operating system that is widely used in a variety of settings, from personal computers to servers and supercomputers. One of the strengths of Linux is the wealth of documentation and help available to users. Below are several options to get documentation or help about commands and the system in general: 

@@ -1,7 +1,7 @@
 ---
 title: "Undo Changes"
 date: 2023-01-04T21:31:59+01:00
-draft: true
+draft: false
 ---
 
 Git offers different commands that allow to "travel back in time" or undo changes

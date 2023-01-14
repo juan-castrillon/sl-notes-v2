@@ -2,7 +2,7 @@
 title: "Distributions"
 date: 2023-01-04T22:32:09+01:00
 weight: 1
-draft: true
+draft: false
 ---
 
 The Linux kernel is the core of the operating system. A full Linux distribution consists of the kernel plus a number of other software tools for file-related operations, user management, and software package management

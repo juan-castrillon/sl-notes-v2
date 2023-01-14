@@ -1,5 +1,5 @@
 ---
 title: "Azure"
-draft: true
+draft: false
 ---
 
