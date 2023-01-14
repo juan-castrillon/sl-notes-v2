@@ -19,8 +19,9 @@ home = [ "HTML", "RSS", "SEARCH"]
 themeVariant='oe'
 disableLandingPageButton = true
 disableInlineCopyToClipBoard = true
+disableExplicitIndexURLs = true
 collapsibleMenu = true
-alwaysopen = true
+alwaysopen = false
 
 [markup]
   [markup.highlight]
