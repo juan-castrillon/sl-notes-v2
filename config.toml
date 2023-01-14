@@ -1,4 +1,6 @@
 baseURL = "https://juan-castrillon.github.io/sl-notes-v2"
+canonifyURLs = true
+
 title = "SL Notebook"
 
 [module]
