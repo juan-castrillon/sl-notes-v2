@@ -1,8 +1,5 @@
-module compose-exampleSite
+module github.com/juan-castrillon/sl-notes-v2
 
-go 1.15
+go 1.18
 
-require (
-	github.com/McShelby/hugo-theme-relearn v0.0.0-20230104001949-0100506bec06 // indirect
-	github.com/onweru/compose v0.0.0-20220613192136-823b5de743db // indirect
-)
+require github.com/McShelby/hugo-theme-relearn v0.0.0-20230114003928-fafc04cb4290 // indirect
