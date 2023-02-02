@@ -49,7 +49,7 @@ function new_article {
         fi
         hugo new "$content_dir/$section/$subsection/$article.md"
         echo "Created $article article in $subsection subsection in $section section."
-    elif [ "$#" -eq 2]; then
+    elif [ "$#" -eq 2 ]; then
         section=$1
         article=$2
         if [ ! -d "$content_dir/$section" ]; then
