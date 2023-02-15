@@ -78,11 +78,6 @@ git remote remove <name>
 
 ### Getting Data
 
-remote tracking branch
-  pointer to a branch in the remote
-  cannot move it myself
-  git branch -r
-
 #### Cloning a remote
 
 To "pull" a remote for the first time to a machine that does not have it, the `clone` command is used. 
@@ -94,16 +89,55 @@ git clone <url>
 The command :
 - Copies the data from the remote
 - Initializes a local git repo. 
-- Sets up a remote tracking branches pointing to the branches of the remote
+- Sets up remote tracking branch references pointing to the branches of the remote
 
 {{% notice style="note" title="Remote tracking branches" %}}
-These are a pointer (just like any other branch) to the latest commit of a branch in the remote. For example `origin/main` points to the last known commit of the `main` branch in the remote `origin`. To see all rtb in a repo, the command `git branch -r` helps. Its also worth noting that they can be checkout with `git checkout origin/main` which will show the state of the `main` branch in [detached `HEAD` mode](../..//undo-changes/#detached-head)
+These are a pointer (just like any other branch) to the latest commit of a branch in the remote. For example `origin/main` points to the last known commit of the `main` branch in the remote `origin`. To see all remote tracking branch references in a repo, the command `git branch -r` helps. Its also worth noting that they can be checkout with `git checkout origin/main` which will show the state of the `main` branch in [detached `HEAD` mode](../..//undo-changes/#detached-head)
 {{% /notice %}}
+
+##### Other branches
+
+When cloning, only the default branch (`master` or `main`) is accessible in the local repository. This is because the cloning process, although it creates RTB references for all remote branches, just "links" the one of the default branch to a local branch.
+
+In order to access other remote branches locally is enough to use
+
+```bash
+git switch <branch_name>
+```
+
+where `<branch_name>` is the same name as one of the remote branches. This will automatically:
+- Create a new local branch called `<branch_name>`
+- Link it with the RTB references for the remote branch
 
 
 #### Fetching
 
+`git fetch` allows to retrieve the latest changes from a remote repository without merging them into the local branch. 
+
+The command can be used as `git fetch <remote>` to fetch all available changes (all branches) or `git fetch <remote> <branch>` to fetch a specific branch.
+
+In more detail, it only updates the RTB references but not the local branches. So if running `git fetch origin master`, the `origin/master` reference will now point to the latest version, but the local `master` branch **won't** be affected. 
+
+{{% notice style="tip" title="Seeing the changes" %}}
+Once fetched, the changes can be seen with `git checkout` in detached HEAD mode
+{{% /notice %}}
+
+
+
 #### Pulling
+
+`git pull` is similar to `git fetch`, but it also merges the changes from the remote repository into the local branch. This means that your local branch is automatically updated with the latest changes from the remote repository.
+
+The command can be used like `git pull <remote> <branch>` to pull changes from a specific branch. In addition, `git pull` will default the remote to `origin` and the branch to the RTB reference linked to the current branch. 
+
+In other words, it updates both the RTB reference (e.g. `origin/master`) and the current `HEAD` (e.g `master`)
+
+Because of this, is **critical** to run the command in the correct place, as the current branch when the command is run will be the one updated. 
+
+
+{{% notice style="warning" title="fetch vs pull" %}}
+The main difference between `git fetch` and `git pull` is that `git fetch` only retrieves the changes from the remote repository, while `git pull` retrieves the changes and merges them into your local branch.
+{{% /notice %}}
 
 
 ### Pushing data
