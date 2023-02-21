@@ -51,20 +51,7 @@ Interactive: The Playground allows you to write code and see the results in real
 Shareable: You can share your code snippets with others by sharing the URL of the Playground page. This makes it easy to collaborate with others and get feedback on your code.
 Code formatting: The Playground automatically formats your code as you type, making it easier to read and understand.
 Import support: You can import packages and libraries from the Go standard library or from third-party sources, allowing you to explore and experiment with a wide range of Go code.
-`,description:"",tags:null,title:"Playground",uri:"/go/playground/index.html"},{content:`Below is a list of common operations to check the current status of a linux system
-Hardware Some general information about the machine can be obtained by using the uname command. With the -a flag it will print:
-Kernel Name Node hostname Kernel release and version Processor type Operating system uname -a Checking uptime The uptime command can be used to determine how long has the server been “up”
-uptime --pretty Memory To check the physical available memory use:
-grep MemTotal /proc/meminfo However, running free gives a more complete overview on memory usage:
-free -h CPU The command lscpu displays information about the CPU architecture:
-lscpu With the extended flag, the information can be compressed in a table
-lscpu --extended For more level of detail, the respective /proc file can be read and grepped
-cat /proc/cpuinfo Disks and filesystems Networking Checking for open ports Checking firewalls Software Distribution Installed packages Processes top htop | process info df -h | filesystes lsblk | block disks
-ss
-normally used with tlpn shows open ports and interfaces run with sudo shows the processes https://www.tecmint.com/ss-command-examples-in-linux/ nmap port scanner used on the ip shows open port ufw
-firewall to manage iptables `,description:"",tags:null,title:"Checking the System",uri:"/linux/using-a-linux-system/checking-the-system/index.html"},{content:`Linux is an open source operating system (OS). An operating system is the software that directly manages a system’s hardware and resources, like CPU, memory, and storage. The OS sits between applications and hardware and makes the connections between all of your software and the physical resources that do the work.
-In particular Linux provides the kernel, on top of which all different OS (Distributions) are built
-`,description:"",tags:null,title:"Linux",uri:"/linux/index.html"},{content:"",description:"",tags:null,title:"Using a Linux System",uri:"/linux/using-a-linux-system/index.html"},{content:"",description:"",tags:null,title:"Collaboration",uri:"/git/collaboration/index.html"},{content:`What is? Git is a version control system. In other words it registers changes on a set of files.
+`,description:"",tags:null,title:"Playground",uri:"/go/playground/index.html"},{content:"",description:"",tags:null,title:"Collaboration",uri:"/git/collaboration/index.html"},{content:`What is? Git is a version control system. In other words it registers changes on a set of files.
 Good to know Git uses SHA-1 to reference a version of a file or files.
 Basic Workflow The basic workflow of Git is based on 3 states that files can be at:
 The file (or files) are in the working directory, where they are modified Changes (modified files) are added to the staging area Staged changes are then committed to the git repository. This creates a version of the file (with an assigned SHA-1 id) called a commit. `,description:"",tags:null,title:"Git",uri:"/git/index.html"},{content:`There are several repository management tools that allow to take the git workflow and ease collaboration based on the cloud. These are hosting platform for git repositories and their use is supported by native git commands. The most popular are:
@@ -116,7 +103,9 @@ Server On the server, nfs runs a a daemon, and allows to share a directory in th
 sudo systemctl start nfs # Starts the NFS daemon On the /etc/exports file, the directories that are going to be shared are typed in. For example /projects *(rw) means that the /projects directory in the server will be shared (with read and write accesses).
 Using exportfs -av notifies Linux of the changes. The NFS daemon can also be reset, and set to start on boot.
 Client On the client, the filesystem is mounted like any other (Is also possible to modify fstab to boot with the filesystem mounted)
-sudo mount servername:/projects /mnt/nfs/projects `,description:"",tags:null,title:"Filesystems",uri:"/linux/system/filesystems/index.html"},{content:"",description:"",tags:null,title:"System",uri:"/linux/system/index.html"},{content:`The Linux file system structure is organized into a tree-like hierarchy, starting from the root directory /. The root directory contains several standard subdirectories, each serving a specific purpose.
+sudo mount servername:/projects /mnt/nfs/projects `,description:"",tags:null,title:"Filesystems",uri:"/linux/system/filesystems/index.html"},{content:`Linux is an open source operating system (OS). An operating system is the software that directly manages a system’s hardware and resources, like CPU, memory, and storage. The OS sits between applications and hardware and makes the connections between all of your software and the physical resources that do the work.
+In particular Linux provides the kernel, on top of which all different OS (Distributions) are built
+`,description:"",tags:null,title:"Linux",uri:"/linux/index.html"},{content:"",description:"",tags:null,title:"System",uri:"/linux/system/index.html"},{content:`The Linux file system structure is organized into a tree-like hierarchy, starting from the root directory /. The root directory contains several standard subdirectories, each serving a specific purpose.
 Good to know Similar information can be found using man hier
 Here is a list of the standard folders in the Linux filesystem hierarchy:
 /bin - Binary executables for system \u0026 users. This directory contains essential command line utilities, such as ls, cat, and cp, that are required for basic system operation and are accessible by both the system and users.
@@ -133,7 +122,7 @@ Here is a list of the standard folders in the Linux filesystem hierarchy:
 /mnt - Mount points for file systems temporarily mounted. This directory is similar to /media, but it is used for temporarily mounting file systems, such as network file systems, that are not meant to persist across reboots.
 /opt - Optional software installation. This directory is intended for the installation of optional software packages that are not part of the standard Linux distribution. Each software package is installed in its own subdirectory within /opt, making it easy to manage and remove the software if necessary.
 /proc - Process information file system. This directory is a virtual file system that provides information about the system and running processes. The files in this file system are not stored on disk like traditional files, but are generated on-the-fly by the kernel. The /proc file system is used to provide information about system resources, such as memory usage, system uptime, and CPU utilization, as well as information about running processes, such as their process ID, memory usage, and status.
-`,description:"",tags:null,title:"Filesystem Architecture",uri:"/linux/system/filesystem-architecture/index.html"},{content:`Git offers different commands that allow to “travel back in time” or undo changes
+`,description:"",tags:null,title:"Filesystem Architecture",uri:"/linux/system/filesystem-architecture/index.html"},{content:"",description:"",tags:null,title:"Using a Linux System",uri:"/linux/using-a-linux-system/index.html"},{content:`Git offers different commands that allow to “travel back in time” or undo changes
 git checkout Detached HEAD Using git checkout \u003cCOMMIT\u003e leads to Detached HEAD state.
 This state, refers to when HEAD, instead of pointing to a branch reference (like usually) points to a specific commit.
 This state is useful for:
