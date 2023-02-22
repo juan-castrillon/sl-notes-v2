@@ -1,7 +1,7 @@
 ---
 title: "Checking the System"
 date: 2023-02-08T18:45:27+01:00
-draft: true
+draft: false
 ---
 
 Below is a list of common operations to check the current status of a linux system
@@ -245,11 +245,54 @@ In addition, `yum info` can be used to obtain information about installed (or no
 
 ### Processes
 
+To see the processes running in the system, the main tool is `ps`. This **non-interactive** tool, has several options to show information about running processes. The syntax of the arguments can be either standard or BSD. 
 
-top htop | process info
+Some useful commands are presented below:
+
+```bash
+ps #Shows processes in current shell
+ps -ef #Shows all processes in the system with full format
+ps aux #BSD Argument style, shows all processes of all users
+ps auxww #List all running processes including the full command string
+ps aox pid,ppcpu #BSD Argument style, shows only PID and %CPU
+ps -o ppid= -p 0000 #Get the parent PID of a process
+ps --sort size #Sort processes by memory consumption
+```
+
+There is also ways to check processes interactively mainly with `top` and `htop`. These are real-time tools that show the status of the system. Just running them executes them and menus inside allow to configure the output. 
+
+{{% notice style="tip" title="Help" %}}
+`top` and `htop` are highly configurable, and their output can be changed live. To figure out how, type `h` in `top` or `F1` in `htop` to seek help and see possible commands
+{{% /notice %}}
+
 ### Services (Daemons)
-# systemctl
-used for services
-enable, disable, start, stop, status
 
-https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
+A system service or daemon is a program that runs in the background on a Linux system to provide functionality or perform a task, such as managing network connections or serving web pages. In order to monitor them and manage them, most distributions use `systemctl`
+
+To check the status of a service run
+
+```bash
+systemctl status service
+```
+
+In a similar way, `systemctl is-active`, `systemctl is-failed` and `systemctl is-enabled` can be used to check a service. 
+
+To list all services active in the system run 
+
+```bash
+systemctl list-units
+```
+
+Filters can be applied to this command. A very common one is to filter just services:
+
+```bash
+systemctl list-units --type=service
+```
+
+Finally to read a service definition can be done with:
+
+```bash
+systemctl cat service
+```
+
+More detailed information can be found in [this article](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)
