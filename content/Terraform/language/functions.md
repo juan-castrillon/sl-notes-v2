@@ -1,7 +1,7 @@
 ---
 title: "Functions"
 date: 2023-11-16T20:26:28+01:00
-draft: true
+draft: false
 ---
 
 Terraform has many built-in functions that can be used to transform and combine values. They can be used in expressions and interpolations.

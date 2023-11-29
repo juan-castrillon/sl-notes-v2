@@ -1,7 +1,7 @@
 ---
 title: "Logs"
 date: 2023-11-10T18:24:32+01:00
-draft: true
+draft: false
 ---
 
 Terraform can log to a file or to the standard output. The log level can be set to `TRACE`, `DEBUG`, `INFO`, `WARN` or `ERROR`.

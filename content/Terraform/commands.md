@@ -1,7 +1,7 @@
 ---
 title: "Commands"
 date: 2023-10-28T11:45:34+02:00
-draft: true
+draft: false
 ---
 
 ## init

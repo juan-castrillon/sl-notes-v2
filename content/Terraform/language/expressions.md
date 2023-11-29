@@ -1,7 +1,7 @@
 ---
 title: "Expressions"
 date: 2023-11-07T18:09:52+01:00
-draft: true
+draft: false
 ---
 
 Expressions are used to refer to or compute values within a configuration. Expressions are used in a number of situations, most commonly in argument values for resources and data sources to express values that cannot be determined until apply time.

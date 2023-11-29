@@ -1,4 +1,4 @@
 ---
 title: "Terraform Files"
-draft: true
+draft: false
 ---

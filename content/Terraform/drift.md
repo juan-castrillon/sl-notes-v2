@@ -1,7 +1,7 @@
 ---
 title: "Drift"
 date: 2023-11-09T18:41:58+01:00
-draft: true
+draft: false
 ---
 
 Drift is the difference between the state that is currently in the state file and the real infrastructure.

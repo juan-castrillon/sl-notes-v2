@@ -1,7 +1,7 @@
 ---
 title: "Resource"
 date: 2023-11-06T18:25:47+01:00
-draft: true
+draft: false
 ---
 
 The resource block defines a resource that exists within the infrastructure. It is the most important block in Terraform.

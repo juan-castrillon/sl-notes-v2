@@ -1,7 +1,7 @@
 ---
 title: "Public Modules"
 date: 2023-11-10T18:37:51+01:00
-draft: true
+draft: false
 ---
 
 Terraform modules can be published on the [Terraform Registry](https://registry.terraform.io/). This is the official registry of Terraform modules.

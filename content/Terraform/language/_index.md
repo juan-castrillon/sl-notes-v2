@@ -1,6 +1,6 @@
 ---
 title: "Language"
-draft: true
+draft: false
 ---
 
 Terraform files (normally with the extension `.tf`) are written in HashiCorp Configuration Language (HCL). It is a declarative language, meaning that you describe the desired state of the infrastructure, and Terraform will figure out how to create that state.

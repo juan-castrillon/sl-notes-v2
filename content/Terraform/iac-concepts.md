@@ -1,7 +1,7 @@
 ---
 title: "IaC Concepts"
 date: 2023-03-08T17:47:21+01:00
-draft: true
+draft: false
 ---
 
 # What is infrastructure as code (IaC)

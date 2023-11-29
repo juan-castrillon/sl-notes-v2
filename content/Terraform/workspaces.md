@@ -1,7 +1,7 @@
 ---
 title: "Workspaces"
 date: 2023-11-21T18:08:56+01:00
-draft: true
+draft: false
 ---
 
 Workspaces are used to managed multiple instances of the same infrastructure. They are useful for separating environments (dev, staging, prod) or for managing multiple instances of the same infrastructure (multiple Kubernetes clusters, multiple web apps, etc).

@@ -1,7 +1,7 @@
 ---
 title: "Variables"
 date: 2023-11-05T08:56:20+01:00
-draft: true
+draft: false
 ---
 
 # Input Variables

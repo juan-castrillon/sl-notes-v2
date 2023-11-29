@@ -1,7 +1,7 @@
 ---
 title: "Standard Structure"
 date: 2023-11-10T18:45:24+01:00
-draft: true
+draft: false
 ---
 
 Terraform modules should follow a standard structure to make them easier to use and maintain. The following structure is recommended:

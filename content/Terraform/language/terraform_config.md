@@ -1,7 +1,7 @@
 ---
 title: "Terraform Block"
 date: 2023-11-05T08:56:20+01:00
-draft: true
+draft: false
 ---
 
 The terraform block is normally the first block in a configuration. It is used to configure the behavior of Terraform itself.

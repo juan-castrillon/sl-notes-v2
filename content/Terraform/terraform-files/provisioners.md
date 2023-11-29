@@ -1,7 +1,7 @@
 ---
 title: "Provisioners"
 date: 2023-10-30T19:03:20+01:00
-draft: true
+draft: false
 ---
 
 Provisioners are used to execute scripts on a local or remote machine as part of the resource creation or destruction process. (After the resource is created or destroyed)

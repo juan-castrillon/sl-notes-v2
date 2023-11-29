@@ -1,7 +1,7 @@
 ---
 title: "State"
 date: 2023-11-09T18:12:45+01:00
-draft: true
+draft: false
 ---
 
 Terraform stores the state of the infrastructure it manages in a file. This state file is extremely important; it maps various resource metadata to actual cloud resource IDs so that Terraform knows what it is managing. 
