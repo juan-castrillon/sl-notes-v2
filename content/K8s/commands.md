@@ -13,6 +13,13 @@ kubectl create -f res.yaml
 kubectl apply -f res.yaml # Can be run in an existing resource without failing
 ```
 
+#### Edit existing object definition in place
+
+```bash
+kubectl edit object_type object_name # Does not edit a YAML definition if there is one
+kubectl replace -f res.yaml
+```
+
 ### Pods
 
 #### Run pod ad-hoc
@@ -40,3 +47,29 @@ kubectl describe pod pod_name
 kubectl delete pod pod_name
 ```
 
+### ReplicaSets
+
+#### Get Replica Sets
+
+```bash
+kubectl get replicaset
+kubectl get rs
+```
+
+#### Get single replica set
+
+```bash
+kubectl describe replicaset rs_name
+```
+
+#### Scale replica set ad-hoc
+
+```bash
+kubectl scale --replicas=6 replicaset rs_name
+```
+
+#### Destroy replica set
+
+```bash
+kubectl delete replicaset rs_name
+```
