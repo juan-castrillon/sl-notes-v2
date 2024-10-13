@@ -72,3 +72,50 @@ spec:
 
 
 ## Deployment
+
+Deployments are kubernetes abstract elements that provides a way to manage updates for `Pod` and `ReplicaSet` elements
+
+These elements encapsulate (are a level higher) the other two, and allows to control updates in scenarios like: 
+
+- New image version
+- Scale up / down
+- Rollout deployments
+- Rollback
+
+It creates and manages `ReplicaSet` elements underneath to manage the pods. When rolling out/back, new ones are created to pass pods following a given strategy.
+
+To apply updates, deployments use the concept of a `rollout`. These represent a new revision (version) of a deployment in which something changed (see above). Creating or modifying a deployment creates a rollout.
+
+The rollout can follow one of two strategies:
+- `Recreate`: Destroy all old pods, and then spin all the new ones. This approach leads to having downtime in this period
+- `RollingUpdate`: This is the **default** strategy. Destroy one old pod (or more) and bring up a new one. Repeat. This approach has no downtimes as the application (either in the old or new version) will always be available. For fine tuning, the parameters `maxUnavailable` and `maxSurge` (maximum number of Pods that can be created **over** the desired number of Pods) can be used. 
+
+### YAML Definition
+
+Definition is similar to a replica set, but with `kind: Deployment`
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-frontend
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 25%
+      maxSurge: 25%
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      name: http-frontend-pod # Does not matter much, pods will have the name of the deployment as prefix
+      labels:
+        tier: frontend
+    spec:
+      containers:
+        - name: http-frontend-cont
+          image: httpd:2.4-alpine
+```

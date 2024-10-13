@@ -4,6 +4,32 @@ date: 2024-10-12T16:42:53+02:00
 draft: false
 ---
 
+### Deployments
+
+#### See rollout status (following logs)
+
+```bash
+kubectl rollout status deployments/d_name
+```
+
+#### See revision history
+
+```bash
+kubectl rollout history deployments/d_name
+```
+
+#### Rollback to previous revision
+
+```bash
+kubectl rollout undo deployments/d_name
+```
+
+#### Change deployment image ad-hoc
+
+```bash
+kubectl set image deployments/d_name cont_name=image
+```
+
 ### General
 
 #### Create resource from YAML
