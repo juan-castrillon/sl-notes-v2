@@ -119,3 +119,88 @@ spec:
         - name: http-frontend-cont
           image: httpd:2.4-alpine
 ```
+
+## Services
+
+Services are kubernetes abstractions that help expose groups of Pods over a network. Each Service object defines a logical set of endpoints (usually these endpoints are Pods) along with a policy about how to make those pods accessible.
+
+These (using the underlying plugin-implemented network) allow for communication :
+- Between pods in the cluster (backend - frontend for example)
+- Using an IP address external to the cluster (IP of the node for example)
+
+They enable a loose coupling between pods, which is necessary as pods and their addresses can constantly change. 
+
+Depending on the type of "exposure" desired, there are different types of services that can be created
+
+On creation, all service elements are assigned a cluster-wide unique IP (cluster IP) which can be used to refer to it. 
+
+### NodePort services
+
+These type of services, expose a port in a pod (or a series of pods) as a port in the host machine. With this, the address of the host machine (external to the kubernetes cluster) can be used to access the application
+
+![node_port](/images/K8s/k8s_node_port.png)
+
+> Node ports assigned can range from 30000 to 32767. If no port is defined, a random free one in that range will be used
+
+Pods are selected using a `selector` field in the definition. If a service is created and matches multiple pods, or pods in multiple hosts, K8s automatically includes them under the service, and they will be reachable using the external IP of any of the nodes (even if not running an instance) in the defined port. 
+
+#### YAML Definition
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      targetPort: 80 # If not provided, assumed to be same as port
+      port: 80 # Port in which app will be available inside the cluster (cluster ip)
+      nodePort: 30008 # If not provided a free port in the range is assigned
+  selector:
+    label1: value1
+```
+
+### ClusterIP services
+
+As seen above, each service gets assigned an internal cluster IP where it will route request from `port` to `targetPod` on the pods. This type of service (without linking to external IP) is a `ClusterIP` service. This is the **default** type of service in kubernetes and allow inter-pod communication inside the cluster.
+
+Once created, these services provide a single (non volatile) interface that pods can use to find other pods. They can do so by using the cluster IP of the service or its name. 
+
+#### YAML Definition
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-end
+spec:
+  type: ClusterIP
+  ports: # No node port is used
+    - targetPort: 80
+      port: 8080 # This app will be available in <CLUSTER_IP>:8080 and route to port 80 on the pods
+  selector:
+    label1: value1
+```
+
+### LoadBalancer services
+
+This type of service is particular to K8s clusters running in given cloud providers. When defined, K8s will provision a native cloud-provisioner load balancer for the application which can be used to unify the access to a single IP
+
+#### YAML Definition
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-end
+spec:
+  type: LoadBalancer
+  ports:
+    - targetPort: 80
+      port: 8080
+      nodePort: 30008 # If not used in a supported platform, it will act as a NodePort
+  selector:
+    label1: value1
+```
