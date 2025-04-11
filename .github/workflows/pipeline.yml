@@ -15,7 +15,7 @@ jobs:
         with:
           hugo-version: "0.109.0"
           extended: true
-      - uses: actions/cache@v2 # Cache the Hugo modules
+      - uses: actions/cache@v4 # Cache the Hugo modules
         with:
           path: /tmp/hugo_cache
           key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
