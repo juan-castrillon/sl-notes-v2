@@ -204,3 +204,41 @@ spec:
   selector:
     label1: value1
 ```
+
+
+## Namespaces
+
+Namespaces are kubernetes components that allow for isolation of resources in a single cluster. It allows to deploy pods, services and deployments in a logical group that enables easy networking and setting up policies and resource constraints (with `ResourceQuota` objects ).
+
+### Default Namespaces
+
+Kubernets starts by default with 4 namespaces:
+
+- `default`
+  - Kubernetes includes this namespace so that you can start using your new cluster without first creating a namespace.
+  - Without any configuration is the one that `kubectl` access.
+- `kube-node-lease`
+  - This namespace holds `Lease` objects associated with each node. Node leases allow the `kubelet` to send heartbeats so that the control plane can detect node failure.
+- `kube-public`
+  - This namespace is readable by all clients (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster.
+- `kube-system`
+  - The namespace for objects created by the Kubernetes system
+
+> In production environments, the use of the `default` namespace is not encouraged
+
+### DNS in Namespaces
+
+In a namespace, all resources must have an unique name (between namespaces is not mandatory). This enables k8s to create DNS infrastructure that allows pods to reach services by their names. In a inter-namespace context, services can be reached using their [FQDN](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/#namespaces-and-dns)
+
+![dns](/images/K8s/ns_dns.png)
+
+### YAML Definition
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns1
+```
+
+> The `metadata.namespace` field can also be populated in YAML definitions for pods, services and deployments to assign them to a NS directly.
