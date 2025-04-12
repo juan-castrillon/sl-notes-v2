@@ -32,26 +32,26 @@ When deciding what to do, the program
 ## Imperative Commands
 
 #### Create resource from YAML
-{{% badge style="red" icon="warning" %}}Imperative{{% /badge %}}
+{{% badge style="warning" title=" " %}}Imperative{{% /badge %}}
 ```bash
 kubectl create -f res.yaml
 ```
 
 #### Replace resource from YAML
-{{% badge style="red" icon="warning" %}}Imperative{{% /badge %}}
+{{% badge style="warning" title=" " %}}Imperative{{% /badge %}}
 ```bash
 kubectl replace -f res.yaml
 ```
 
 #### Delete resource from YAML
-{{% badge style="red" icon="warning" %}}Imperative{{% /badge %}}
+{{% badge style="warning" title=" " %}}Imperative{{% /badge %}}
 ```bash
 kubectl delete -f res.yaml
 ```
 
 
 #### Edit existing object definition in place
-{{% badge style="red" icon="warning" %}}Imperative{{% /badge %}}
+{{% badge style="warning" title=" " %}}Imperative{{% /badge %}}
 ```bash
 kubectl edit object_type object_name # Does not edit a YAML definition if there is one
 ```
