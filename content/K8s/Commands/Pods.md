@@ -17,6 +17,12 @@ kubectl get pods -o wide # Adds more info like ip
 kubectl describe pod pod_name
 ```
 
+#### Get pods based on selector
+
+```bash
+kubectl get pods --selector key=value
+```
+
 #### Generate POD Manifest YAML file
 
 ```bash
