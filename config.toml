@@ -1,4 +1,4 @@
-baseURL = "https://juan-castrillon.github.io/sl-notes-v2"
+baseURL = "https://slnotes.blog.castrillon.ch"
 canonifyURLs = true
 
 title = "SL Notebook"
