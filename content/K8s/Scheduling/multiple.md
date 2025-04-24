@@ -57,7 +57,7 @@ profiles:
   - schedulerName: my-scheduler-4
 ```
 
-{{% notice style="tip" title="Units" %}}
+{{% notice style="tip" %}}
 This file is normally mounted as `ConfigMap` in the scheduler pod or as an argument for the binary (in case of a service)
 {{% /notice %}}
 
