@@ -129,7 +129,7 @@ These type of objects are generally used for:
 - Networking components (e.g `kube-proxy`)
 - Other uses
 
-Under the hood, these objects make use of [Node Affinity]({{< ref "k8s/scheduling/selectors/#node-affinity" >}}) to create a pod for each of the nodes and interact with the scheduler to deploy it. 
+Under the hood, these objects make use of [Node Affinity]({{< ref "k8s/scheduling/selectors" >}}) to create a pod for each of the nodes and interact with the scheduler to deploy it. 
 
 ### YAML Definition
 
