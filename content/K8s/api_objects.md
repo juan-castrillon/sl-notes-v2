@@ -120,6 +120,38 @@ spec:
           image: httpd:2.4-alpine
 ```
 
+## DaemonSet
+
+`DaemonSet` are kubernetes objects, similar to `ReplicaSet`, that ensures that a pod is run in all (or certain) pods in a cluster. This includes any potential new nodes, that will be given an instance of the pod automatically when joining the cluster. 
+
+These type of objects are generally used for:
+- Monitoring services
+- Networking components (e.g `kube-proxy`)
+- Other uses
+
+Under the hood, these objects make use of [Node Affinity]() to create a pod for each of the nodes and interact with the scheduler to deploy it. 
+
+### YAML Definition
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monitoring-daemon
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-agent #Matches the pod below
+  template:
+    metadata:
+      labels:
+        app: monitoring-agent
+    spec:
+      containers:
+        - name: monitoring-agent
+          image: monitoring-agent
+```
+
 ## Services
 
 Services are kubernetes abstractions that help expose groups of Pods over a network. Each Service object defines a logical set of endpoints (usually these endpoints are Pods) along with a policy about how to make those pods accessible.

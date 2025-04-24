@@ -22,6 +22,26 @@ In each container in a pod, two thing can be defined to specify resource require
 CPU is specified in cores, which i typically equivalent to one vCPU in cloud environments like AWS, GCP, or Azure. In the definitions, fractional values can be be used with prefixes (e.g 100m is equal to 0.1). For memory, either bytes are used, either in base 1000 (K,M,G) or 1024 (Ki, Mi, Gi).
 {{% /notice %}}
 
+Below is an example of a pod definition with resource allocation:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-color
+spec:
+  containers:
+  - name: simple-webapp-color
+    image: simple-webapp-color
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: 1
+      limits:
+        memory: "2Gi"
+        cpu: 2
+```
+
 ### Combination Behavior
 
 | -           | No Limit                                                                                                                                                                                                                           | Limit Set                                                                                                                                                                                           |
