@@ -17,7 +17,7 @@ In each of the phases, logic and decision making is implemented by plugins
 
 The image below shows different plugins that work in different stages of the scheduling pipeline:
 
-![scheduling](/images/k8s/k8s_scheduling.png)
+![scheduling](/images/K8s/k8s_scheduling.png)
 
 For example:
 
