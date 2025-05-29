@@ -10,7 +10,7 @@ K8s does not offer monitoring out of the box for its components. Multiple soluti
 
 Altough not a part of the cluster by default, K8s provides to option to create a limited [resource metrics pipeline](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)/ 
 
-This pipeline provides a limited set of metrics related to cluster components such as the `HorizontalPodAutoscaler` controller, as well as the `kubectl to`p utility. These metrics are collected by the lightweight, short-term, in-memory `metrics-server`.
+This pipeline provides a limited set of metrics related to cluster components such as the `HorizontalPodAutoscaler` controller, as well as the `kubectl top` utility. These metrics are collected by the lightweight, short-term, in-memory `metrics-server`.
 
 `metrics-server` discovers all nodes on the cluster and queries each node's `kubelet` for CPU and memory usage. The agent then pulls the information either from the underlying OS or using something like [cAdvisor](https://github.com/google/cadvisor) to pull pod (container specific metrics)
 

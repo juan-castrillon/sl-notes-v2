@@ -274,3 +274,60 @@ metadata:
 ```
 
 > The `metadata.namespace` field can also be populated in YAML definitions for pods, services and deployments to assign them to a NS directly.
+
+## ConfigMap
+
+`ConfigMap` are k8s objects that abstract configuration from pods, making it possible to centralize configuration which can then be injected into different pods as files, environment variables or arguments. 
+
+{{% notice style="tip" %}}
+These objects are used to store non-confidential data in key-value pairs. For delicate information `Secrets` are preferred.
+{{% /notice %}}
+
+Once created, pod definitions can reference the objects:
+
+- Mounted as a volume: Each of the keys in `data` becomes a file under the mount path
+- As environment files: Particular env variables can reference the config, or the whole config set can be imported. See [here]({{< ref "k8s/appconfig/env" >}}) for details
+
+### YAML Definition
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-demo
+data:
+  # property-like keys; each key maps to a simple value
+  player_initial_lives: "3"
+  # file-like keys 
+  user-interface.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true    
+```
+
+
+## Secrets
+
+A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Is similar to a `ConfigMap` but more secure. Once again, once created, pod definitions can reference the objects:
+
+- Mounted as a volume: Each of the keys in `data` becomes a file under the mount path
+- As environment files: Particular env variables can reference the secrets. See [here]({{< ref "k8s/appconfig/env" >}}) for details
+
+
+{{% notice style="warning" %}}
+Secrets are by default in kubernetes not that secure. They are stored encoded (base64), not encryted, and anyone with access to the cluster can access them. There are [measurements](https://kubernetes.io/docs/concepts/security/secrets-good-practices/) that can be taken to reduce the risk (enabling encryption at rest, enabling RBAC rules), but is almost worth to manage secrets with a third party solution like [Hashicorp Vault](https://developer.hashicorp.com/vault)
+{{% /notice %}}
+
+
+### YAML Definition
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret
+data:
+  DB_Host: bXlzcWw= # Each value is stored base64 encoded
+  DB_User: cm9vdA==
+  DB_Password: cGFzd3Jk
+```
