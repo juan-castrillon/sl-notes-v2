@@ -11,58 +11,61 @@ In linux, the boot process occurs when initiating the system. It goes from the m
 
 This is a sequential Process
 
-![image](https://user-images.githubusercontent.com/64461123/117857331-ef9ad780-b28c-11eb-9a0f-7dacaa2b45f9.png)
+![](/images/Linux/boot_process.png)
 
 ### 1. BIOS
 
 - Basic Input Output System
 - Initializes the hardware (including monitor and keyboard)
-- Tests the main memory
+- Tests the main memory (**P**ower **O**n **S**elf **T**est)
 - Normally installed in a ROM in the motherboard
 
-### 2. Boot Loader & Kernel
+### 2. Boot Loader
 
-- First Stage: Master Boot Record (MBR)  examines the partition table and finds a bootable partition. Also finds a second-stage bootloader (e.g. GRUB) and loads in into RAM
+- First Stage: 
+  - In Old systems: The BIOS looks for executable boot code in a certain part of the disk (Master Boot Record (MBR)). This code examines the partition table and finds a bootable partition. Also finds a second-stage bootloader (e.g. GRUB) and loads in into RAM
+  - In New Systems (UEFI): UEFI Firmware reads boot entries (Information about where is which os, where in the EFI partition is the bootloader). It also finds the bootloader and starts it.
 - Second Stage: Programs like GRUB allow to choose the OS. Once decided, it loads the kernel and the initial RAM disks (in RAM) and passes control to the kernel. (Kernel first job is to decompress itself)
+  - Second stage bootloaders are located in `/boot`
+  - Some second-stage bootloaders are GRUB (for GRand Unified Boot loader), ISOLINUX (for booting from removable media), and DAS U-Boot (for booting on embedded devices/appliances)
+
+### 3. Kernel initialization and initial RAM Disk `initramfs`
+
 - When the kernel is loaded in RAM, it initializes and configures the computer’s memory and also configures all the hardware attached to the system.
-- Second stage bootloaders are located in `/boot`
-- Some second-stage bootloaders are GRUB (for GRand Unified Boot loader), ISOLINUX (for booting from removable media), and DAS U-Boot (for booting on embedded devices/appliances)
-
-### 3. Initial RAM Disk `initramfs`
-
-- Contains programs and binary files that perform all actions needed to mount the proper root filesystem
+- The filesystem contains programs and binary files that perform all actions needed to mount the proper root filesystem
 - After the root filesystem has been found, it is checked for errors and mounted.
 - At boot time, the boot loader loads the kernel and the initramfs image into memory and starts the kernel. The kernel checks for the presence of the initramfs and, if found, mounts it as `/` and runs `/sbin/init`.
 
 ### 4. `/sbin/init`
 
-- init handles the mounting and pivoting over to the final real root filesystem.
-- Normally a shell script.
+- It handles the mounting and pivoting over to the final real root filesystem.
 - Is the parent process of nearly all processes
-- Near the end of the boot process, init starts a number of text-mode login prompts. In case of an OS with a GUI, then this is loaded and displayed instead
-
-
-## `/sbin/init` and Services
-
-Apart from being the initial process, the `init` script is also responsible for:
-- Keeping the system running (Managing other processes, cleaning up after them, etc)
+- Set ups processes and networking, mounts filesystems, etc.
+- Keeps the system running (Managing other processes, cleaning up after them, etc)
 - Shut down cleanly
 
-Methods for this startup are `systemd` and `Upstart`
+Most distributions have a link from `/sbin/init` to `systemd`
 
-### `systemd`
 
-- Current systems use `systemd` instead of `init` because it simplifies the init process and makes it faster (parallel service execution instead of sequential)
-- Complicated startup shell scripts are replaced with simpler configuration files
-- `/sbin/init` now just points to `/lib/systemd/systemd`;
+## SystemD Targets (former Runlevels)
 
-Some commands are:
+When initializing the system, `systemd` defines a set of services that need to run so that the system is considered ready. However, this is not a fix set and it depends on the "mode" one wants to initialize the system in. 
 
-Starting, stopping, restarting a service (using nfs as an example) on a currently running system:
-```sh
-sudo systemctl start|stop|restart nfs.service
+The following "modes" (or targets in systemd) are common:
+
+- `multi-user.target`: Start the system into non GUI (terminal) input
+- `graphical.target`: Start the system into GUI input
+
+Targets provide a way to declare service and other target dependencies. There a several targets defined in the systemd [documentation](https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html#)
+
+To see the default target in a system:
+
+```bash
+systemctl get-default
 ```
-Enabling or disabling a system service from starting up at system boot:
-```sh
-sudo systemctl enable|disable nfs.service
+
+TO change it:
+
+```bash
+systemctl set-default multi-user.target
 ```

@@ -32,7 +32,7 @@ Here is a list of the standard folders in the Linux filesystem hierarchy:
 
 - **/home** - Home directories of users. This directory contains a subdirectory for each user on the system, which serves as that user's home directory. The home directory typically contains personal configuration files, documents, and other files specific to each user. The only exception is the `root` user, whose home is `/root`
 
-- **/media** - Mount points for removable media. This directory contains subdirectories for mounting removable storage devices, such as USB drives and CD-ROMs. Each mounted device is represented by a subdirectory in `/media`, allowing for easy access to the files and directories on the device. In modern distributions,can be named `/run`
+- **/media** - Mount points for removable media. This directory contains subdirectories for mounting removable storage devices, such as USBs. Each mounted device is represented by a subdirectory in `/media`, allowing for easy access to the files and directories on the device. In modern distributions,can be named `/run`
 
 - **/mnt** - Mount points for file systems temporarily mounted. This directory is similar to `/media`, but it is used for temporarily mounting file systems, such as network file systems, that are not meant to persist across reboots.
 
