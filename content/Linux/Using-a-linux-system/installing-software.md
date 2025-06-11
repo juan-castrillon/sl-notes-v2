@@ -5,18 +5,39 @@ weight: 1
 draft: false
 ---
 
+## Packages
+
+A package in the linux distributions is a compressed archive that contains all necessary files for a software to run in the system. 
+
+This includes among others:
+- Binaries
+- Configuration files
+- Metadata
+
+{{% notice style="warning" title="Dependencies" %}}
+The compressed package does not include other software that it needs to run. This "dependencies" are the main reason package managers exist
+{{% /notice %}}
+
 ## Package managers
 
-The process of installing software on Linux can vary depending on the distribution you are using. Here is a general overview of the common methods used to install software on different Linux distributions:
+Package managers help with the following when dealing with packages:
+
+- Installation (Decompression, copying files)
+- Upgrading
+- Configuration
+- Removal
+- Integrity checks (comes from a trusted source, checksum check, etc.)
+- Deal with dependencies
+
+ Here is a general overview of the common managers used to install packages on different Linux distributions:
 
 - Debian and Ubuntu: Software is typically installed using the `apt` package manager. Low level manager is normally `dpkg`
-- Red Hat and Fedora: Software is typically installed using the `yum` package manager. Low level manager is normally `rpm`
+- Red Hat and Fedora: Software is typically installed using the `yum` or `dnf` package manager. Low level manager is normally `rpm`
 - SUSE Family: Software is typically installed using the `zypper` package manager. Low level manager is normally `rpm`
-- Other distributions: Some other Linux distributions, such as Slackware, use their own package management systems. You can refer to the distribution's documentation for information on how to install software.
+- Other distributions: Some other Linux distributions, such as Slackware, use their own package management systems. 
 
-Each package contains the files and other instructions needed to make one software component work well and cooperate with the other components that comprise the entire system. 
 
-All linux distributions have a low level and a high level package manager:
+As seen above, all linux distributions have a low level and a high level package manager:
 - The low level, is in charge of installing single packages correctly. 
 - The high level usually calls the low level one and additionally, is in charge of resolving dependencies.
 
@@ -26,22 +47,25 @@ It's also worth noting that there are other ways to install software on Linux, s
 
 ## Common operations
 
-| Operation                        | RH Family                          | Debian Family                                   |
-| -------------------------------- | ---------------------------------- | ----------------------------------------------- |
-| Install package                  | `rpm -i foo.rpm`                   | `dpkg --install foo.deb`                        |
-| Install package, dependencies    | `yum install foo`                  | `apt-get install foo` or `apt install foo`      |
-| Remove package                   | `rpm -e foo.rpm`                   | `dpkg --remove foo.deb`                         |
-| Remove package, dependencies     | `yum remove foo`                   | `apt-get remove foo` or `apt remove foo`        |
-| Remove package, deps, and config |                                    | `apt-get remove --purge foo` or `apt purge foo` |
-| Remove "left-behind" packages    | `yum autoremove`                   | `apt-get autoremove` or `apt autoremove`        |
-| Update package                   | `rpm -U foo.rpm`                   | `dpkg --install foo.deb`                        |
-| Update package, dependencies     | `yum update foo `                  | ` apt-get install foo`                          |
-| Update entire system             | `yum update`                       | `apt-get dist-upgrade`                          |
-| Show all installed packages      | `rpm -qa` or  `yum list installed` | `dpkg --list` or `apt list --installed`         |
-| Get information on package       | `rpm -qil foo`                     | `dpkg --listfiles foo`                          |
-| Show packages named foo          | `yum list "foo"`                   | `apt-cache search foo` or `apt search foo`      |
-| Show all available packages      | `yum list`                         | ` apt-cache dumpavail foo`                      |
-| What package is file part of?    | `rpm -qf file`                     | `dpkg --search file`                            |
+| Operation                              | RH Family                                      | Debian Family                                                                       |
+| -------------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Install package                        | `rpm -i foo.rpm`                               | `dpkg -i foo.deb`                                                                   |
+| Install package, dependencies          | `yum/dnf install foo`                          | `apt-get install foo` or `apt install foo`                                          |
+| Remove package                         | `rpm -e foo.rpm`                               | `dpkg -r foo.deb`                                                                   |
+| Remove package, dependencies           | `yum/dnf remove foo`                           | `apt-get remove foo` or `apt remove foo`                                            |
+| Remove package, deps, and config       |                                                | `apt-get remove --purge foo` or `apt purge foo`                                     |
+| Remove "left-behind" packages          | `yum/dnf autoremove`                           | `apt-get autoremove` or `apt autoremove`                                            |
+| Update package                         | `rpm -U foo.rpm`                               | `dpkg -i foo.deb`                                                                   |
+| Update package, dependencies           | `yum/dnf update foo `                          | ` apt-get install foo`                                                              |
+| Update entire system                   | `yum/dnf update`                               | `apt upgrade` to upgrade all packages, `apt-get dist-upgrade` to upgrade OS as well |
+| Show all installed packages            | `rpm -qa` or  `yum/dnf list installed`         | `dpkg -l` or `apt list --installed`                                                 |
+| Get information on package             | `rpm -qil foo`                                 | ``dpkg -s foo` for status, `dpkg --listfiles foo` to see the package files          |
+| Show packages named foo                | `yum/dnf list "foo"`                           | `apt-cache search foo` or `apt search foo`                                          |
+| Show all available packages            | `yum/dnf list`                                 | ` apt-cache dumpavail foo`                                                          |
+| What package is file part of?          | `rpm -qf file`                                 | `dpkg --search file`                                                                |
+| Edit repository sources                |                                                | `apt edit-sources`                                                                  |
+| Dry run install to check for conflicts | `rpm -i --test`                                | `-`                                                                                 |
+| What package provides a command        | `rpm --whatprovides x` or `yum/dnf provides x` | `-`                                                                                 |
 
 
 ## Debian-based distributions
