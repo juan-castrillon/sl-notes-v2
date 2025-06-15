@@ -11,11 +11,6 @@ To switch between VTs, press CTRL-ALT-function key for the VT. For example, pres
 
 
 
-# links
-
-`ln f1 f2`  hard link f2 ->f1
-`ln -s f1f2` soft
-
 # VI
 
 3 modes

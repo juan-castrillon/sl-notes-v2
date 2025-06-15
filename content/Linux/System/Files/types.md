@@ -33,14 +33,25 @@ These are also normally located in `/dev` but represent block devices (devices t
 
 #### Links
 
-Links provide a way to relate two or more files in linux:
+Links make it possible to reference the same file content from different paths, which is useful for flexibility, backup strategies, and file management.
 
 - **Hard Links**:
-  - A hard link associates multiple filenames with the same block of data
-  - Deleting the last hard link results in the removal of that data. Otherwise,the link "keeps it"
+  - A hard link associates multiple filenames with the same block of data.
+  - Both the original file and the hard link are indistinguishable at the filesystem level—they share the same **inode number**
+  - Deleting one hard link does not remove the data **until** the last hard link is deleted.
+  - Hard links **cannot** span across different filesystems or partitions.
+  - Hard links **do not** work with directories (to prevent circular references).
+  - Can be created with `ln f1 f2` (Link from f2 to f1)
+
 - **Soft links**:
   - A symlink acts like a shortcut, pointing to another file
   - Deleting a symlink does not affect its target file.
+  - If the target file is deleted or moved, the symlink becomes **broken** (dangling).
+  - Modifying a symlinked file modifies the target file.
+  - Symlinks **can** point across different filesystems.
+  - Symlinks **can** refer to directories.
+  - Can be created with `ln -s f1 f2` (Link from f2 to f1)
+
 
 #### Sockets
 
