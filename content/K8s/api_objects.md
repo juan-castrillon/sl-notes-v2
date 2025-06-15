@@ -331,3 +331,72 @@ data:
   DB_User: cm9vdA==
   DB_Password: cGFzd3Jk
 ```
+
+## Persistent Volumes
+
+Persistent Volumes (PV) are cluster-wide resources representing real storage, whether cloud-based, network-attached, or local disks.
+
+The `accessModes` specify how the volume can be mounted:
+
+- `ReadWriteOnce` allows read-write by a single node.
+- `ReadOnlyMany` allows read-only by multiple nodes.
+- `ReadWriteMany` allows read-write by multiple nodes.
+
+Pods then request storage by creating a PVC, which is then matched to a suitable PV
+
+When a PVC is deleted, what happens to the underlying storage depends on the PV’s `persistentVolumeReclaimPolicy`:
+
+- `Retain` (default): The PV and its data remain but the volume is not available for reuse until manually cleaned.
+- `Delete`: The PV and its storage are deleted automatically.
+- `Recycle`: The volume’s data is wiped and the volume becomes available for new claims.
+
+### YAML Definition
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-example
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data
+```
+
+## Persistent Volume Claims
+
+These objects define a request for storage (normally made by a pod). The PVC specifies the amount of storage needed and access mode, and Kubernetes binds it to a PV that satisfies those requirements.
+
+### YAML Definition
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-example
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+## Storage classes
+
+A `StorageClass` defines how to provision storage dynamically from a backend storage system. It connects to an external storage provisioner and creates volumes (PV) on demand each time a PVC with the appropriate `spec.storageClassName` is created
+
+
+### YAML Definition
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: google-storage
+provisioner: kubernetes.io/gce-pd
+```
