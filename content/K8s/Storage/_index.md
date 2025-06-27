@@ -82,6 +82,29 @@ spec:
 
 The PVC specifies the amount of storage needed and access mode, and Kubernetes binds it to a PV that satisfies those requirements.
 
+A pod will simply invoke the PVC like:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: pvc-example
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
+
 
 ### Lifecycle and Reclaim Policy
 
