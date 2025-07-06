@@ -188,7 +188,7 @@ nslookup example.com 8.8.8.8
 
 The `host` command is a lightweight and user-friendly utility for performing DNS lookups. It’s simpler than `dig` and often faster for quick queries.
 
-### Basic Usage
+#### Basic Usage
 
 ```bash
 host example.com
@@ -197,7 +197,7 @@ host example.com
 This returns the default A (IPv4) record(s) for the domain.
 
 
-### Query Specific Record Types
+#### Query Specific Record Types
 
 ```bash
 host -t MX example.com     # Mail exchange records
@@ -212,7 +212,7 @@ You can also use -a for a full query (equivalent to ANY):
 host -a example.com
 ```
 
-### Query a Specific DNS Server
+#### Query a Specific DNS Server
 
 ```bash
 host example.com 1.1.1.1
