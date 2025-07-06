@@ -43,7 +43,70 @@ In particular Linux provides the kernel, on top of which all different OS (Distr
 Files are stored in a hierarchical filesystem, with the top node of the system being the root or simply “/”. Whenever possible, Linux makes its components available via files or objects that look like files. Processes, devices, and network sockets are all represented by file-like objects and can often be worked with using the same utilities used for regular files.
 Linux is a fully multitasking (i.e., multiple threads of execution are performed simultaneously), multiuser operating system with built-in networking and service processes known as daemons in the UNIX world.
 Info Linux was inspired by UNIX, but it is not UNIX.
-`,description:"",tags:null,title:"Linux",uri:"/linux/"},{breadcrumb:"Notes \u003e Linux \u003e Using a Linux System",content:`The shell in linux is a program that allows the user to interact with the underlying OS by sending text commands.
+`,description:"",tags:null,title:"Linux",uri:"/linux/"},{breadcrumb:"Notes \u003e Linux \u003e System",content:`In computer systems, a network is a group of devices (also known as nodes) connected together. Nodes in a network can communicate and exchange information with each others
+Every device on a network must have a unique address, called an IP address, which is used to send and receive data.
+There are two primary types of IP addresses:
+IPv4 (e.g. 192.168.0.1) — 32-bit addresses, widely used but limited in quantity. They are composed by 4 octets (8 bits) IPv6 (e.g. 2001:db8::1) — 128-bit addresses, designed to replace IPv4. Networks are also made up of interfaces, switches, routers, and other components that work together to ensure data moves from one point to another.
+`,description:"",tags:null,title:"Networking",uri:"/linux/system/networking/"},{breadcrumb:"Notes \u003e Linux",content:"",description:"",tags:null,title:"System",uri:"/linux/system/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`When network issues arise, having a set of reliable tools to diagnose and understand the problem is essential. Linux offers a variety of commands to help inspect connectivity, routing, and traffic flow.
+Common Troubleshooting Commands ping Sends ICMP echo request packets to a target host to check if it is reachable Measures round-trip time. It is sometimes blocked in certain networks to avoid network scanning and hacking attacks ping -c 4 example.com #-c option to limit the number of pings senttraceroute Traces the path that packets take from the source to a destination host. It reveals each hop (router) along the way and the time taken to reach it. Useful for identifying where delays or failures occur in the network path. ethtool Useful for inspecting and modifying Ethernet device settings, such as speed, duplex mode, and link status. It can diagnose hardware-level issues on network interfaces.
+netstat and ss These commands provide information about active network connections, listening ports, and network statistics. ss is the modern replacement for netstat, offering faster and more detailed output.
+tcpdump A powerful packet analyzer that captures and displays network traffic on an interface. It’s invaluable for deep inspection of network packets to diagnose protocol or application-level issues.
+iptraf An interactive, console-based network monitoring tool that shows real-time traffic statistics and protocol breakdowns.
+mtr Combines the functionality of ping and traceroute by continuously sending packets and displaying the route along with latency and packet loss statistics. It’s useful for ongoing network path analysis.
+dig Used for detailed DNS queries, helpful when diagnosing name resolution issues.
+nmap A network scanner used to discover hosts and services on a network, and to check open ports and firewall settings.
+`,description:"",tags:null,title:"Troubleshooting",uri:"/linux/system/networking/troubleshooting/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`In the world of networking, a network interface is a crucial concept. It represents the physical or virtual point of connection between a device (like a computer, server, or router) and a network. Think of it as a doorway through which data enters and leaves the device.
+A network interface can be:
+A physical interface, such as an Ethernet port or a Wi-Fi adapter. A virtual interface, created by software, like loopback interfaces (lo) or virtual network devices used in virtualization or containerization. Each interface acts as a channel linking the device to the network. It has its own hardware address (MAC address) and can be assigned one or more IP addresses.
+Viewing Network Interfaces On Linux systems, the command to view all network interfaces and their status is:
+ip link showThis lists all interfaces along with their current state (up or down), MAC address, and other details.
+To see the IP addresses assigned to interfaces, use:
+ip addr showThis shows each interface with its IPv4 and IPv6 addresses, subnet masks, and other configuration details.
+Assigning IP Addresses IP addresses can be assigned manually or automatically via DHCP. To assign an IP address manually to an interface, the command is:
+ip addr add 192.168.1.100/24 dev eth0This command assigns the IP address 192.168.1.100 with a subnet mask of 255.255.255.0 to the interface named eth0.
+Bringing Interfaces Up or Down Interfaces can be enabled or disabled with commands like:
+ip link set eth0 up ip link set eth0 downBringing an interface down disconnects it from the network until it is brought back up.
+Interfaces and Network Configuration Files On Debian-based systems, network interface configurations are traditionally found in /etc/network/interfaces or managed by tools like NetworkManager, nmcli, or nmtui. On Red Hat and SUSE systems, configurations reside under /etc/sysconfig/network-scripts/.
+Modern Linux distributions often use NetworkManager, which simplifies interface management, especially for wireless connections and dynamic configurations.
+`,description:"",tags:null,title:"Interfaces",uri:"/linux/system/networking/interfaces/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`Routing moves packets between networks. A router connects two or more networks and has IP addresses on each.
+Routing Table A routing table is a set of rules stored in a device (like a computer or router) that tells the system where to send network packets based on their destination IP addresses. Each entry in the routing table specifies:
+A destination network or host IP range The next hop (the next device to send the packet to) The network interface to use Additional metadata such as metrics or priority This table allows devices to forward packets not just within their own local network but also across interconnected networks.
+In practice:
+Router: A device that connects two or more networks, having multiple IP addresses (one per connected network). It uses its routing table to decide where to forward incoming packets.
+Gateway: Often called the “door” to a network (like a room), a gateway is the device that routes traffic from a local network to other networks or the internet. The gateway’s IP is usually configured on hosts as the default gateway.
+Viewing the Routing Table ip route # or legacy routeAdding a Route ip route add 10.0.0.0/24 via 192.168.1.1 Route all packages that go to 10.0.0.0/24 via the device in my network 192.168.1.1
+Default Gateway Defines where to send traffic destined for unknown networks.
+ip route add default via 192.168.1.1`,description:"",tags:null,title:"Routing",uri:"/linux/system/networking/routing/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`An IP address uniquely identifies a device on a network.
+IPv4 IPv4 addresses are 32-bit numbers written as four octets (e.g. 192.168.1.1).
+IPv4 Classes (Legacy) Class A: First octet = network ID Class B: First two octets = network ID Class C: First three octets = network ID Class D: Multicast Class E: Experimental NAT Network Address Translation allows multiple devices on a private network to share a single public IP address. This is specially useful in IPv4 systems, as the number of addresses is limited:
+IPv6 IPv6 addresses are 128-bit, written in hexadecimal, and use colons (e.g. 2001:0db8::1). They vastly increase the number of available addresses and eliminate the need for NAT.
+Address Assignment Static (manual): Using ip addr or config files Dynamic: Using DHCP (Dynamic Host Configuration Protocol) Assigning an IP Address ip addr add 192.168.1.10/24 dev eth0`,description:"",tags:null,title:"IP Addressing",uri:"/linux/system/networking/ip_addressing/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`DNS stands for Domain name resolutions and is a system that enables the use of domains (names) to refer to nodes in a network instead of using IP addresses.
+It works by establishing a record list, which maps names (domains) to IPs
+In Linux, systems normally have several “levels” of DNS resolution:
+DNS Configuration Local Resolution /etc/hosts In all linux systems, the file /etc/hosts is consulted for local IP -\u003e Name mapping.
+This file takes priority over any external DNS. In case of any record appearing in multiple servers in the chain, the one here will have priority (by default, see below)
+127.0.0.1 localhost 192.168.1.10 dev-server Resolution Priority The file /etc/nsswitch.conf can be used to configure the order of resolution:
+hosts: files dnsIn case of the config above, /etc/hosts will have priority over any external DNS server
+Centralized Resolution In real systems, depending on local resolution configured in each server does not scale well and becomes very difficult to maintain. A better option is to manage records in a central server, and configure all nodes in the network to consult it for any DNS queries.
+Once set, if a hostname cannot be resolved locally, the system forwards the request to the DNS server.
+This is traditionally controlled with the file /etc/resolv.conf which contains nameservers and search domains (gets automatically added to any queries):
+nameserver 8.8.8.8 nameserver 1.1.1.1 search home.local Tip In modern systems is now more common use systemd-resolved to manage name resolution instead of resolv.conf.
+On such systems, /etc/resolv.conf is often a symlink to a dynamically managed file (like /run/systemd/resolve/stub-resolv.conf). Manual edits to /etc/resolv.conf may be ignored or overwritten.
+DNS settings can typically be configured via NetworkManager, netplan, or systemd-networkd, depending on the system setup.
+DNS Records DNS records define how domain names map to IP addresses, services, and other information. Here are the most commonly used types:
+A record Maps a domain to an IPv4 address Example example.com. IN A 93.184.216.34AAAA record Maps a domain to an IPv6 address Example example.com. IN AAAA 2606:2800:220:1:248:1893:25c8:1946CNAME Creates an alias from one domain to another. Example: www.example.com. IN CNAME example.com.When resolving www.example.com, the DNS server looks up example.com instead. Useful for pointing multiple subdomains to the same canonical source.
+Domains When a request such as apps.google.com is made, the DNS server will forward the query if it does not have a record for it:
+A root DNS server directs the request to a DNS server responsible for the .com domain. The .com DNS server forwards the request to Google’s DNS server. Google’s DNS server returns the IP address for the service. Tools for DNS in Linux Two essential tools for DNS troubleshooting and inspection on Unix-like systems are dig, nslookup. hosts. They help query DNS servers and display detailed information about how domain names are resolved.
+Warning All tools do not consider entries in etc/hosts
+dig: Domain Information Groper dig is a flexible and powerful command-line tool to perform DNS lookups. It’s the preferred tool for advanced diagnostics.
+Basic Usage dig example.comThis returns:
+A record (IPv4 address) by default Query time Authoritative/non-authoritative status Query a Specific Record Type dig example.com A # IPv4 address dig example.com AAAA # IPv6 address dig example.com MX # Mail server dig example.com TXT # Text records dig example.com CNAME # AliasUse a Specific DNS Server dig @1.1.1.1 example.comShort Answer Only (for scripting or readability) dig +short example.comnslookup: Name Server Lookup nslookup is an older utility, still widely available and useful for quick checks.
+Basic Usage nslookup example.comReturns the default DNS server and the A record of the domain.
+Query a Specific Record Type nslookup -query=MX example.comInteractive Mode You can launch nslookup in interactive mode:
+nslookup \u003e set type=TXT \u003e example.com \u003e exitUse a Specific DNS Server nslookup example.com 8.8.8.8host The host command is a lightweight and user-friendly utility for performing DNS lookups. It’s simpler than dig and often faster for quick queries.
+Basic Usage host example.comThis returns the default A (IPv4) record(s) for the domain.
+Query Specific Record Types host -t MX example.com # Mail exchange records host -t AAAA example.com # IPv6 address host -t TXT example.com # Text records host -t NS example.com # Name serversYou can also use -a for a full query (equivalent to ANY):
+host -a example.comQuery a Specific DNS Server host example.com 1.1.1.1`,description:"",tags:null,title:"DNS",uri:"/linux/system/networking/dns/"},{breadcrumb:"Notes \u003e Linux \u003e Using a Linux System",content:`The shell in linux is a program that allows the user to interact with the underlying OS by sending text commands.
 Popular shells include:
 Bourne Again Shell (bash) zsh sh Current shell can be determined reading the environment variable $SHELL. Furthermore, using
 chshAllows one to change the shell for the user
@@ -61,7 +124,7 @@ Command Description i Insert before the cursor I Insert at the beginning of line
 3. Last Line Mode (Command-Line Mode) Accessed by typing : from Normal Mode, this mode allows file-level operations and configuration commands.
 Some commands include
 Command Description :w Save (write) the file :q Quit :wq Save and quit :q! Quit without saving To return to Normal Mode, press Esc.
-`,description:"",tags:null,title:"Vim",uri:"/linux/using-a-linux-system/shell/vim/"},{breadcrumb:"Notes \u003e Linux \u003e System",content:"",description:"",tags:null,title:"Files",uri:"/linux/system/files/"},{breadcrumb:"Notes \u003e Linux",content:"",description:"",tags:null,title:"System",uri:"/linux/system/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Files",content:`Linux distinguishes 3 main categories of files:
+`,description:"",tags:null,title:"Vim",uri:"/linux/using-a-linux-system/shell/vim/"},{breadcrumb:"Notes \u003e Linux \u003e System",content:"",description:"",tags:null,title:"Files",uri:"/linux/system/files/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Files",content:`Linux distinguishes 3 main categories of files:
 Regular files Directories Special files The command:
 file \u003cfile\u003ecan be used to determine the type of a file
 Special files Under “special”, linux understands all files that are not regular. They are:
