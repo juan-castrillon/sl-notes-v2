@@ -43,11 +43,65 @@ In particular Linux provides the kernel, on top of which all different OS (Distr
 Files are stored in a hierarchical filesystem, with the top node of the system being the root or simply “/”. Whenever possible, Linux makes its components available via files or objects that look like files. Processes, devices, and network sockets are all represented by file-like objects and can often be worked with using the same utilities used for regular files.
 Linux is a fully multitasking (i.e., multiple threads of execution are performed simultaneously), multiuser operating system with built-in networking and service processes known as daemons in the UNIX world.
 Info Linux was inspired by UNIX, but it is not UNIX.
-`,description:"",tags:null,title:"Linux",uri:"/linux/"},{breadcrumb:"Notes \u003e Linux \u003e System",content:`In computer systems, a network is a group of devices (also known as nodes) connected together. Nodes in a network can communicate and exchange information with each others
+`,description:"",tags:null,title:"Linux",uri:"/linux/"},{breadcrumb:"Notes \u003e Linux \u003e Using a Linux System",content:`Scheduling jobs on Linux enables automatic execution of commands or scripts at specified times or intervals, facilitating system maintenance, backups, and other repetitive tasks without manual intervention.
+Cron — Recurring Scheduled Tasks Cron is the most commonly used tool for scheduling recurring jobs. Each user has an individual crontab (cron table) file defining their scheduled tasks.
+The crontab file uses a specific syntax consisting of five fields that specify the timing:
+* * * * * | | | | | | | | | +----- Day of week (0-7, Sunday=0 or 7) | | | +---------- Month (1-12) | | +--------------- Day of month (1-31) | +-------------------- Hour (0-23) +------------------------- Minute (0-59)Special notations include:
+* to indicate “any value” */n to specify “every n units” Examples of cron expressions:
+Every 5 minutes: */5 * * * * At 3:30 AM daily: 30 3 * * * Crontab files are typically edited with the command:
+crontab -eScheduled jobs can be listed with:
+crontab -l System wide jobs The command crontab -l displays the current user’s personal scheduled jobs stored in their individual crontab file. In contrast, system-wide scheduled tasks are defined in files like /etc/crontab and within the /etc/cron.d/ directory, which allow administrators to configure jobs that apply to multiple users or the entire system. These system files include an additional field to specify the user under which each job runs.
+At — One-Time Scheduled Tasks The at command schedules commands to be run once at a specified future time. Unlike cron, which manages recurring jobs, at is suitable for one-off tasks.
+For example, to schedule a job at 6:00 PM today:
+echo "sh /path/to/script.sh" | at 18:00The system’s atd daemon must be running to process these jobs.
+Anacron — Handling Jobs on Systems Not Running Continuously On systems that are not powered on 24/7 (like laptops), anacron ensures scheduled jobs still run even if the system was off at the scheduled time.
+Anacron runs jobs defined in /etc/anacrontab, executing missed jobs once the system becomes active again.
+This complements cron by providing better guarantees of job execution on intermittent systems.
+`,description:"",tags:null,title:"Scheduled Jobs",uri:"/linux/using-a-linux-system/scheduled-jobs/"},{breadcrumb:"Notes \u003e Linux",content:"",description:"",tags:null,title:"Using a Linux System",uri:"/linux/using-a-linux-system/"},{breadcrumb:"Notes \u003e Linux \u003e System",content:`In computer systems, a network is a group of devices (also known as nodes) connected together. Nodes in a network can communicate and exchange information with each others
 Every device on a network must have a unique address, called an IP address, which is used to send and receive data.
 There are two primary types of IP addresses:
 IPv4 (e.g. 192.168.0.1) — 32-bit addresses, widely used but limited in quantity. They are composed by 4 octets (8 bits) IPv6 (e.g. 2001:db8::1) — 128-bit addresses, designed to replace IPv4. Networks are also made up of interfaces, switches, routers, and other components that work together to ensure data moves from one point to another.
-`,description:"",tags:null,title:"Networking",uri:"/linux/system/networking/"},{breadcrumb:"Notes \u003e Linux",content:"",description:"",tags:null,title:"System",uri:"/linux/system/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`When network issues arise, having a set of reliable tools to diagnose and understand the problem is essential. Linux offers a variety of commands to help inspect connectivity, routing, and traffic flow.
+`,description:"",tags:null,title:"Networking",uri:"/linux/system/networking/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`SSH (Secure Shell) is the standard method to securely connect to remote Linux servers. It encrypts all communication, preventing eavesdropping or tampering.
+By default, SSH runs a server process listening on port 22 on the remote machine. To connect, simply run:
+ssh user@remote-serverIf one omit the username, SSH assumes the local username.
+Passwordless Authentication with SSH Keys For convenience and security, passwordless login is preferred. This uses a key pair:
+Generate a key pair on local machine:
+ssh-keygen -t rsa Copy the public key to the remote server:
+ssh-copy-id user@remote-server Once done, the public key is added to the remote server’s ~/.ssh/authorized_keys file, allowing the user to login without typing the password.
+SCP — Secure Copy Over SSH SCP uses the SSH protocol to securely transfer files between local and remote systems.
+To copy a local file to a remote server:
+scp /path/to/local/file user@server:/path/to/destination/For directories, use the recursive flag:
+scp -r /local/directory user@server:/remote/path/To preserve file permissions and timestamps during copy, add:
+scp -p /local/file user@server:/remote/path/ Tip Remember, the user needs write permissions on the destination folder to copy files successfully.
+`,description:"",tags:null,title:"SSH",uri:"/linux/system/networking/ssh/"},{breadcrumb:"Notes \u003e Linux",content:"",description:"",tags:null,title:"System",uri:"/linux/system/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`IPTables is a built-in Linux firewall tool that controls how network traffic is handled by the kernel. It acts as an internal firewall, filtering packets based on defined rules and chains.
+Listing and Understanding Rules One can view the current firewall configuration with:
+iptables -LBy default, most Linux systems have policies set to ACCEPT, meaning traffic is allowed unless a rule explicitly blocks it.
+The Three Main Chains IPTables rules are grouped into chains, each responsible for different traffic flows:
+INPUT – Incoming traffic to the local system. FORWARD – Traffic passing through the system (common in routers or gateways). OUTPUT – Outgoing traffic from the local system. When a packet reaches a chain, it moves through the list of rules in order. If a rule matches, it can take an action (e.g. ACCEPT or DROP). If no rule matches, the chain’s default policy is applied.
+Creating Rules Rules can match by source, destination, protocol, and port.
+Example: Allow incoming SSH from a specific IP:
+iptables -A INPUT -p tcp -s 192.168.0.12 --dport 22 -j ACCEPTHere:
+-A – Add rule to the bottom of the chain (-I inserts at the top). -p tcp – Match TCP protocol. -s – Source address. --dport 22 – Destination port 22 (SSH). -j ACCEPT – Jump to the ACCEPT target (allow traffic). Rule order Rule order matters. If a packet matches an earlier rule, later rules are skipped.
+Deleting Rules One can delete a rule by its position number:
+iptables -D OUTPUT 5This removes rule number 5 from the OUTPUT chain.
+`,description:"",tags:null,title:"Iptables",uri:"/linux/system/networking/iptables/"},{breadcrumb:"Notes \u003e Linux \u003e Using a Linux System",content:`Linux provides command-line tools for creating, modifying, and removing user and group accounts.
+Creating and Deleting Users To create a new local user:
+useradd bobOne can add options such as -m to create a home directory or -s /bin/bash to set the default shell.
+Interactive user creation When creating the user in person (not from a script) a much better alternative is adduser. This is an interactive script that creates the user and also directly sets a password
+Set the password with:
+passwd bobTo delete a user:
+userdel bobBy default, this keeps the user’s home directory; add -r to remove it.
+User Management See current user:
+whoamiSee which users are logged in:
+whoDisplay current (or other) user and group identity:
+id id bobView the last logged in users
+lastGroup Management Create a new group:
+groupadd -g 1050 developers Note -g can also be skipped to use a generated ID
+Delete a group:
+groupdel developersModifying Users Change password expiration settings:
+chage bobCheck which groups a user belongs to:
+groups bobAdd a user to a supplementary group:
+usermod -aG sudo bob # Attach to group`,description:"",tags:null,title:"User Management",uri:"/linux/using-a-linux-system/user-management/"},{breadcrumb:"Notes \u003e Linux \u003e System \u003e Networking",content:`When network issues arise, having a set of reliable tools to diagnose and understand the problem is essential. Linux offers a variety of commands to help inspect connectivity, routing, and traffic flow.
 Common Troubleshooting Commands ping Sends ICMP echo request packets to a target host to check if it is reachable Measures round-trip time. It is sometimes blocked in certain networks to avoid network scanning and hacking attacks ping -c 4 example.com #-c option to limit the number of pings senttraceroute Traces the path that packets take from the source to a destination host. It reveals each hop (router) along the way and the time taken to reach it. Useful for identifying where delays or failures occur in the network path. ethtool Useful for inspecting and modifying Ethernet device settings, such as speed, duplex mode, and link status. It can diagnose hardware-level issues on network interfaces.
 netstat and ss These commands provide information about active network connections, listening ports, and network statistics. ss is the modern replacement for netstat, offering faster and more detailed output.
 tcpdump A powerful packet analyzer that captures and displays network traffic on an interface. It’s invaluable for deep inspection of network packets to diagnose protocol or application-level issues.
@@ -114,7 +168,7 @@ Assumed shell In these docs, it is assumed the shell is bash
 Command types Command come in two types. The command type can be used with a command as argument to verify which type a certain command is
 Internal: Come built in with the shell. E.g. echo External: Are binaries installed in the system. E.g git, mv Environment Variables Environment variables are user-definable values that affect how running processes behave on the system. The OS sets up a group of variables by default. At any time, the set up environment variables for a user can be seen with
 printenvTo create environment variables, there is two options
-export FOO=bar: This will make the variable extend to all processes created from this shell FOO=bar: The variable will not go further `,description:"",tags:null,title:"Shell",uri:"/linux/using-a-linux-system/shell/"},{breadcrumb:"Notes \u003e Linux",content:"",description:"",tags:null,title:"Using a Linux System",uri:"/linux/using-a-linux-system/"},{breadcrumb:"Notes \u003e Linux \u003e Using a Linux System \u003e Shell",content:`Vim (Vi IMproved) is a powerful, modal text editor commonly found on Unix-like systems. Unlike most text editors, Vim operates in different modes, each optimized for a specific type of interaction—editing, navigating, or executing commands.
+export FOO=bar: This will make the variable extend to all processes created from this shell FOO=bar: The variable will not go further `,description:"",tags:null,title:"Shell",uri:"/linux/using-a-linux-system/shell/"},{breadcrumb:"Notes \u003e Linux \u003e Using a Linux System \u003e Shell",content:`Vim (Vi IMproved) is a powerful, modal text editor commonly found on Unix-like systems. Unlike most text editors, Vim operates in different modes, each optimized for a specific type of interaction—editing, navigating, or executing commands.
 The Three Primary Modes Vim operates in three core modes:
 1. Normal Mode (Command Mode) This is the default mode when opening a file. In this mode, text is not directly inserted. Instead, keystrokes are interpreted as commands for navigating, copying, deleting, or manipulating text.
 Some commands in this mode include:
