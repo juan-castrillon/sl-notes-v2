@@ -8,18 +8,21 @@ draft: false
 
 A file system in Linux is the way in which files are stored, organized, and managed on a Linux operating system. It is responsible for managing the data on a storage device, such as a hard disk or solid-state drive, by dividing it into multiple sections or partitions. The file system determines the structure and organization of the files, as well as the methods used to access and modify them. 
 
+Once mounted in a directory, it acts as "interface" between the os and the physical disk. It determines and abstracts how to interact with the block device
+
 {{% notice style="note" title="Info" %}}
 The most commonly used file systems in Linux are the `ext4`, `btrfs`, and `xfs` file systems. The file system chosen depends on the specific requirements of the system, such as performance, scalability, and reliability.
 {{% /notice %}}
 
+## Creating a filesystem
 
-## Partitions and multiple file systems
+Diverse utilities `mkfs.xxx` can be used to create a file system on a partition (or disk). For example:
 
-In linux each filesystem occupies a disk partition. These are separated “logical drives” or sections inside a single (or more) real drives, but appear as different drives to the OS. Data is stored into different partitions for many reasons, including security or backup. 
+```bash
+mkfs.ext4 /dev/sdb1
+```
 
-`lsblk` provides a tree-like view of the storage devices and their associated partitions, making it easy to see the hierarchical relationships between the different components of the system's storage.For a graphical interface `gparted` can be used to check out the partitions in a system.
-
-### Mounting filesystems
+## Mounting filesystems
 
 Different file systems are mounted on the filesystem tree. The mount points are just directories in which the new filesystem will live.
 
@@ -44,20 +47,27 @@ For example, to mount the file system located at `/dev/sdb1` with the file syste
 /dev/sdb1 /mnt/data ext4 defaults 0 0
 ```
 
+The fields in this case represent:
+- `/dev/sdb1`: Filesystem
+- `/mnt/data:` Mountpoint
+- `ext4`: Filesystem Type
+- `defaults`: Options to control how the filesystem is mounted. Common are also `rw` or `ro` for read only
+- `0`: DUMP control (Mostly legacy, was used to enable a backup, nowadays mostly `0`)
+- `0`: PASS control (used by the `fsck` program to determine the order in which filesystem checks are done at reboot time. The root filesystem should be specified with `1`, and other filesystems should have a `2` or `0` to ignore)
+
 More information is available in `man fstab`
 
 {{% notice style="tip" title="Good to know" %}}
 `mounted` alone, as well as `df -Th` will show all presently mounted filesystems
 {{% /notice %}}
 
-
-### NFS
+## NFS
 
 A special kind of filesystem is a **N**etwork **F**ile **S**ystem. The Network File System (NFS) is a protocol that allows a computer to share its files with other computers over a network. NFS enables seamless access to remote file systems as if they were local, allowing users to access and manage files on remote systems with the same ease as they do on their own computer.
 
 It has a server and a client side
 
-#### Server
+### Server
 On the server, `nfs` runs a a daemon, and allows to share a directory in the server’s filesystem via NFS (with a network address)
 
 ```bash
@@ -68,7 +78,7 @@ On the `/etc/exports` file, the directories that are going to be shared are type
 
 Using `exportfs -av` notifies Linux of the changes. The NFS daemon can also be reset, and set to start on boot.
 
-#### Client
+### Client
 
 On the client, the filesystem is mounted like any other (Is also possible to modify fstab to boot with the filesystem mounted)
 
