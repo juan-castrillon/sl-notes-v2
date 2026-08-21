@@ -4,6 +4,16 @@ date: 2025-04-12T13:27:59+02:00
 draft: false
 ---
 
+## Understanding resources and commands
+
+`kubectl` also provides a way to self-document and facilitate working with the API resources. 
+
+- If high level details about what resources are available (or their api version, etc.) are needed `kubectl api-resources` can be used. 
+- To go into detail into one resource, and figure out what fields are available in a YAML definition and what they mean use `kubectl explain <resource>`
+  - This allows to go down hierarchically (e.g `kubectl explain pod`, `kubectl explain pod.spec`)
+  - Using the `--recursive` flag, prints all children
+
+
 ## Imperative vs Declarative management commands 
 
 In K8s, there is three paradigms to manage general resources:
