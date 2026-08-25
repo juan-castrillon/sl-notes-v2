@@ -26,6 +26,8 @@ Taints are put on a node using `kubectl`:
 
 ```bash
 kubectl taint nodes <node> key:value:NoExecute
+# Adding a "-" at the end of the behavior removes the taint from a node
+kubectl taint nodes <node> key:value:NoExecute-
 ```
 
 ## Tolerations

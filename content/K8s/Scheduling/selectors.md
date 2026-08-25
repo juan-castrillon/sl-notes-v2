@@ -23,6 +23,15 @@ spec:
     size: Large
 ```
 
+{{% notice style="tip" %}}
+To label a node:
+
+```bash
+kubectl label nodes node1 key=value
+```
+{{% /notice %}}
+
+
 ## Node Affinity
 
 For more complex scenarios, node affinity definitions are used. These also work based on labels but allow for more complex rules. 

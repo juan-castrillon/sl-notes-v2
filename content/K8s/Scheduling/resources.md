@@ -51,3 +51,46 @@ spec:
 
 
 ## Namespace level
+
+At the namespace level, two things can be done to limit/handle resources:
+
+### LimitRanges
+
+These are k8s object that represent default and max/min resource values for all pods in a namespace. In other words, it can be used to guarantee that even pods that don't declare anything will have a request and/or limit. 
+
+For example for CPU:
+
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-resource-constraint # Can be anything
+spec:
+  limits:
+    - default:
+        cpu: 500m  #Default limit set on containers that dont declare anything
+      defaultRequest:
+        cpu: 500m # Default request set
+      max:
+        cpu: 1 # Max amount of cpu any container can ask for
+      min:
+        cpu: 100m # Min amount of cpu any container needs to ask for
+      type: Container
+```
+
+### ResourceQuotas
+
+This is used to limit or control resource usage added up for the whole namespace (e.g all containers in the namespace). For example
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: my-resource-quota # Can be anything
+spec:
+  hard:
+    requests.cpu: 4 # Across all pods, sum of requests cannot exceed this
+    requests.memory: 4Gi
+    limits.cpu: 10 # Across all pods in the ns, sum of cpu limits cannot exceed this
+    limits.memory: 10Gi # Across all pods in the ns, sum of memory limits cannot exceed this
+```
