@@ -40,3 +40,26 @@ spec:
     command: \['sh', '-c', 'git clone  ;'\]
 ```
 
+## Sidecar Containers
+
+As a special design pattern for multi containers pods, sidecar containers behave like an init container (starts before the main one) but also as a co-located one (does not exit and continues running until the app exits). To implement this pattern an `initContainer` is used but a `restartPolicy: Always` is defined:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: \['sh', '-c', 'echo The app is running! && sleep 3600'\]
+  initContainers:
+  - name: sidecar-myservice
+    image: busybox
+    command: \['sh', '-c', 'tail -f log  ;'\]
+    restartPolicy: Always
+```
+

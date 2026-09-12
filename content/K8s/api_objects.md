@@ -315,7 +315,7 @@ A Secret is an object that contains a small amount of sensitive data such as a p
 
 
 {{% notice style="warning" %}}
-Secrets are by default in kubernetes not that secure. They are stored encoded (base64), not encryted, and anyone with access to the cluster can access them. There are [measurements](https://kubernetes.io/docs/concepts/security/secrets-good-practices/) that can be taken to reduce the risk (enabling encryption at rest, enabling RBAC rules), but is almost worth to manage secrets with a third party solution like [Hashicorp Vault](https://developer.hashicorp.com/vault)
+Secrets are by default in kubernetes not that secure. They are stored encoded (base64), not encryted, and anyone with access to the cluster can access them. There are [measurements](https://kubernetes.io/docs/concepts/security/secrets-good-practices/) that can be taken to reduce the risk (enabling encryption at rest, enabling RBAC rules), but is almost always worth to manage secrets with a third party solution like [Hashicorp Vault](https://developer.hashicorp.com/vault)
 {{% /notice %}}
 
 
