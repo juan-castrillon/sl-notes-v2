@@ -14,7 +14,7 @@ Sometimes, the underlying k8s nodes need to be restarted or maintaned. In this c
 To avoid this situation, nodes can be drain before they go down. This effectively moves all workloads to different nodes in the cluster and cordons the node
 
 ```bash
-kubectl drain node1 --ingnore-daemonsets
+kubectl drain node1 --ignore-daemonsets
 ```
 
 A node is considered "cordoned" when no pods can be placed on them (marked as unschedulable). 
